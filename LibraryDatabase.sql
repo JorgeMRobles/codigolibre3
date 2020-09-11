@@ -1,0 +1,38 @@
+CREATE DATABASE IF NOT EXISTS library;
+USE library;
+
+CREATE TABLE IF NOT EXISTS Authors (
+	IdAuthor INT NOT NULL AUTO_INCREMENT,
+	NameAuthor VARCHAR(70) NOT NULL,
+    Country VARCHAR(100) NOT NULL,
+    PRIMARY KEY (IdAuthor)
+)ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS Books (
+    IdBook INT NOT NULL AUTO_INCREMENT,
+    Title VARCHAR(70) NOT NULL DEFAULT '',
+    IdAuthor INT NOT NULL,
+	FOREIGN KEY (IdAuthor) references Authors (IdAuthor),
+	Publisher VARCHAR(70) NOT NULL DEFAULT '',
+	Genre VARCHAR(70) NOT NULL DEFAULT '',
+	Lang VARCHAR(40) NOT NULL DEFAULT '',
+    PRIMARY KEY (IdBook)
+)ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS Users (
+    IdUser INT NOT NULL AUTO_INCREMENT,
+    NameUser VARCHAR(40) NOT NULL DEFAULT '',
+    PRIMARY KEY (IdUser)
+)ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS Orders (
+    IdOrder INT NOT NULL AUTO_INCREMENT,
+    IdBook INT NOT NULL,
+    IdUser INT NOT NULL,
+    FOREIGN KEY (IdBook) references Books (IdBook),
+    FOREIGN KEY (IdUser) references Users (IdUser),
+    DateOrder DATE NOT NULL,
+    DateMaxDevolution DATE NOT NULL,
+    DateDevolution DATE NULL,
+    PRIMARY KEY (IdOrder)
+)ENGINE = InnoDB;
